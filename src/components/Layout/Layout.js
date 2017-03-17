@@ -39,7 +39,7 @@ export default class Layout extends Component {
               </NavItem>
 
               <NavItem>
-                <Link to="/profile" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
+                <Link to="/profile/rametta" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
 									My Stats
 								</Link>
               </NavItem>

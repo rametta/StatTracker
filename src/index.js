@@ -25,7 +25,7 @@ ReactDOM.render(
       <Route path="/match/new" component={NewMatch} />
       <Route path="/leaderboards" component={Leaderboards} />
       <Route path="/account" component={Account} />
-      <Route path="/profile" component={Profile} />
+      <Route path="/profile/:gamertag" component={Profile} />
     </Route>
   </Router>,
   document.getElementById('root')
