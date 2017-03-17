@@ -8,7 +8,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 // Pages
 import Layout from './components/Layout/Layout';
 import { Home } from './pages/Home/Home';
-import { NewMatch } from './pages/NewMatch/NewMatch';
+import NewMatch from './pages/NewMatch/NewMatch';
 import { Account } from './pages/Account/Account';
 import { Leaderboards } from './pages/Leaderboards/Leaderboards';
 import { Profile } from './pages/Profile/Profile';

@@ -1,3 +1,17 @@
 .section {
   margin-top: 15px;
 }
+
+.SingleDatePicker, .DateInput {
+  width: 100%;
+  text-align: center;
+  border-radius: .25rem;
+}
+
+.SingleDatePickerInput {
+  border-radius: .25rem;
+}
+
+.DateInput {
+  padding: 4px;
+}
