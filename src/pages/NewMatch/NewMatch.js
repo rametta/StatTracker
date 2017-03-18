@@ -4,6 +4,8 @@ import FontAwesome from 'react-fontawesome';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
 
+import { db, firebaseAuth } from './../../config/constants';
+
 import 'react-dates/lib/css/_datepicker.css';
 import './NewMatch.css';
 
@@ -101,20 +103,26 @@ export default class NewMatch extends Component {
 
   submitMatch() {
     const { outcome, mode, map, kills, deaths, assists, roundWins, roundLosses, date } = this.state;
+    const uid = firebaseAuth().currentUser.uid;
+    console.log(firebaseAuth().currentUser);
     const match = {
-      user: 'jason',
+      uid: uid,
       outcome: outcome,
       mode: mode,
       map: map,
-      kills: parseInt(kills, 10),
-      deaths: parseInt(deaths, 10),
-      kdRatio: parseFloat(this.getKDRatio()),
-      assists: parseInt(assists, 10),
-      roundWins: parseInt(roundWins, 10),
-      roundLosses: parseInt(roundLosses, 10),
-      roundRatio: parseFloat(this.getWinLossRatio()),
-      date: date.toDate()
+      kills: parseInt(kills, 10) || 0,
+      deaths: parseInt(deaths, 10) || 0,
+      kdRatio: parseFloat(this.getKDRatio()) || 0,
+      assists: parseInt(assists, 10) || 0,
+      roundWins: parseInt(roundWins, 10) || 0,
+      roundLosses: parseInt(roundLosses, 10) || 0,
+      roundRatio: parseFloat(this.getWinLossRatio()) || 0,
+      date: date.toISOString()
     }
+
+    db.ref(`stats/${uid}/matches`).push(match)
+    .catch(err => console.error(err));
+
     console.log(match);
   }
 
