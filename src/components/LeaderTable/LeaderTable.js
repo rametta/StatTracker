@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Container, Row, Table, UncontrolledTooltip } from 'reactstrap';
+import { Container, Row, Table } from 'reactstrap';
+import { TextTooltip } from './../TextTooltip/TextTooltip';
 
 import './LeaderTable.css';
 
@@ -13,52 +14,28 @@ export const LeaderTable = props => (
             <tr>
               <th>Player</th>
               <th className="center border-left">
-                <span id={`kdTooltip-${props.id}`}>K/D</span>
-                <UncontrolledTooltip placement="top" target={`kdTooltip-${props.id}`}>
-                  Kill/Death Ratio
-                </UncontrolledTooltip>
+                <TextTooltip id={props.id} name="kd" tooltip="Kill/Death Ratio">K/D</TextTooltip>
               </th>
               <th className="center">
-                <span id={`killsTooltip-${props.id}`}>K</span>
-                <UncontrolledTooltip placement="top" target={`killsTooltip-${props.id}`}>
-                  Kills
-                </UncontrolledTooltip>
+                <TextTooltip id={props.id} name="kills" tooltip="Kills">K</TextTooltip>
               </th>
               <th className="center">
-                <span id={`deathsTooltip-${props.id}`}>D</span>
-                <UncontrolledTooltip placement="top" target={`deathsTooltip-${props.id}`}>>
-                  Deaths
-                </UncontrolledTooltip>
+                <TextTooltip id={props.id} name="deaths" tooltip="Deaths">D</TextTooltip>
               </th>
               <th className="center">
-                <span id={`assistsTooltip-${props.id}`}>A</span>
-                <UncontrolledTooltip placement="top" target={`assistsTooltip-${props.id}`}>
-                  Assists
-                </UncontrolledTooltip>
+                <TextTooltip id={props.id} name="assists" tooltip="Assists">A</TextTooltip>
               </th>
               <th className="center border-left">
-                <span id={`wlTooltip-${props.id}`}>W/L</span>
-                <UncontrolledTooltip placement="top" target={`wlTooltip-${props.id}`}>
-                  Win/Loss Ratio
-                </UncontrolledTooltip>
+                <TextTooltip id={props.id} name="wl" tooltip="Win/Loss Ratio">W/L</TextTooltip>
               </th>
               <th className="center">
-                <span id={`winsTooltip-${props.id}`}>W</span>
-                <UncontrolledTooltip placement="top" target={`winsTooltip-${props.id}`}>
-                  Wins
-                </UncontrolledTooltip>
+                <TextTooltip id={props.id} name="wins" tooltip="Wins">W</TextTooltip>
               </th>
               <th className="center">
-                <span id={`lossesTooltip-${props.id}`}>L</span>
-                <UncontrolledTooltip placement="top" target={`lossesTooltip-${props.id}`}>
-                  Losses
-                </UncontrolledTooltip>
+                <TextTooltip id={props.id} name="losses" tooltip="Losses">L</TextTooltip>
               </th>
               <th className="center">
-                <span id={`tiesTooltip-${props.id}`}>T</span>
-                <UncontrolledTooltip placement="top" target={`tiesTooltip-${props.id}`}>
-                  Ties
-                </UncontrolledTooltip>
+                <TextTooltip id={props.id} name="ties" tooltip="Ties">T</TextTooltip>
               </th>
             </tr>
           </thead>
