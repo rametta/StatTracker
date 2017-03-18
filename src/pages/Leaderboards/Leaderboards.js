@@ -1,75 +1,125 @@
-import React from 'react';
-import { Link } from 'react-router';
-import { Container, Row, Col, Table } from 'reactstrap';
+import React, { Component } from 'react';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Container, Row, Col, FormGroup, Input } from 'reactstrap';
+import { LeaderTable } from './../../components/LeaderTable/LeaderTable';
 
 import './Leaderboards.css';
 
-export const Leaderboards = props => (
-  <Container>
-    <Row className="section">
-      <Col xs="12">
-        <Table responsive striped bordered>
-          <thead>
-            <tr>
-              <th>Player</th>
-              <th>K/D</th>
-              <th>Kills</th>
-              <th>Deaths</th>
-              <th>Assists</th>
-              <th>W/L</th>
-              <th>Wins</th>
-              <th>Losses</th>
-              <th>Ties</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><Link to="/profile/rametta">Rametta</Link></td>
-              <td>2.34</td>
-              <td>1234</td>
-              <td>123</td>
-              <td>1231</td>
-              <td>.76</td>
-              <td>450</td>
-              <td>345</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td><Link to="/profile/veemerk">VeeMerk</Link></td>
-              <td>2.34</td>
-              <td>2423</td>
-              <td>234</td>
-              <td>123</td>
-              <td>.76</td>
-              <td>450</td>
-              <td>345</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td><Link to="/profile/ehlouis">EhLouis</Link></td>
-              <td>2.34</td>
-              <td>1234</td>
-              <td>321</td>
-              <td>1234</td>
-              <td>.76</td>
-              <td>450</td>
-              <td>345</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td><Link to="/profile/cryonical">Cryonical</Link></td>
-              <td>2.34</td>
-              <td>2302</td>
-              <td>234</td>
-              <td>2345</td>
-              <td>.76</td>
-              <td>450</td>
-              <td>345</td>
-              <td>3</td>
-            </tr>
-          </tbody>
-        </Table>
-      </Col>
-    </Row>
-  </Container>
-);
+export default class Leaderboards extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.toggleTab = this.toggleTab.bind(this);
+    this.state = { activeTab: 'overall' };
+  }
+
+  toggleTab(activeTab) {
+    if (this.state.activeTab !== activeTab) {
+      this.setState({ activeTab });
+    }
+  }
+
+  render() {
+    return (
+      <Container className="section">
+        <Row>
+          <Col xs="12">
+
+            <Nav tabs>
+              <NavItem>
+                <NavLink onClick={() => this.toggleTab('overall')}
+                         className={this.state.activeTab === 'overall' ? 'active' : ''}>Overall</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink onClick={() => this.toggleTab('perMode')}
+                         className={this.state.activeTab === 'perMode' ? 'active' : ''}>Per Mode</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink onClick={() => this.toggleTab('perMap')}
+                         className={this.state.activeTab === 'perMap' ? 'active' : ''}>Per Map</NavLink>
+              </NavItem>
+            </Nav>
+
+            <TabContent activeTab={this.state.activeTab}>
+              <TabPane tabId="overall">
+                <Row className="section">
+                  <Col sm="12">
+                    <h4>Overall Statistics</h4>
+                    <LeaderTable id="overall"/>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="perMap">
+                <Row className="section">
+                  <Col sm="12">
+
+                    <Row>
+                      <Col md="9">
+                        <h4>Statistics By Map</h4>
+                      </Col>
+                      <Col md="3" xs="12">
+                        <FormGroup style={{marginBottom: 0}}>
+                          <Input type="select" name="map">
+                            <option>Ambush</option>
+                            <option>Backlot</option>
+                            <option>Bloc</option>
+                            <option>Bog</option>
+                            <option>Countdown</option>
+                            <option>Crash</option>
+                            <option>Crossfire</option>
+                            <option>District</option>
+                            <option>Downpour</option>
+                            <option>Overgrown</option>
+                            <option>Pipeline</option>
+                            <option>Shipment</option>
+                            <option>Showdown</option>
+                            <option>Strike</option>
+                            <option>Vacant</option>
+                            <option>Wet Work</option>
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+
+                    <LeaderTable id="map" />
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="perMode">
+                <Row className="section">
+                  <Col sm="12">
+
+                    <Row>
+                      <Col md="9">
+                        <h4>Statistics By Mode</h4>
+                      </Col>
+                      <Col md="3" xs="12">
+                        <FormGroup style={{marginBottom: 0}}>
+                          <Input type="select" name="game-mode">
+                            <option>Cage Match</option>
+                            <option>Domination</option>
+                            <option>Free for all</option>
+                            <option>Ground War</option>
+                            <option>Headquarters</option>
+                            <option>Mercenary Team Deathmatch</option>
+                            <option>Sabotage</option>
+                            <option>Hardpoint</option>
+                            <option>Search and Destroy</option>
+                            <option>Team Deathmatch</option>
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    
+                    <LeaderTable id="mode"/>
+                  </Col>
+                </Row>
+              </TabPane>
+            </TabContent>
+
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+}

@@ -1,0 +1,15 @@
+.overall-leader-table .center {
+  text-align: center;
+}
+
+.overall-leader-table {
+  border: 1px solid #eceeef;
+}
+
+.overall-leader-table .border-left {
+  border-left: 1px solid #eceeef;
+}
+
+.overall-leader-table .border-right {
+  border-right: 1px solid #eceeef;
+}

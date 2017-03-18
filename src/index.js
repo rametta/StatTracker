@@ -5,12 +5,14 @@ import ReactDOM from 'react-dom';
 // React Router
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
+//import 'tether/dist/js/tether.js';
+
 // Pages
 import Layout from './components/Layout/Layout';
 import { Home } from './pages/Home/Home';
 import NewMatch from './pages/NewMatch/NewMatch';
 import { Account } from './pages/Account/Account';
-import { Leaderboards } from './pages/Leaderboards/Leaderboards';
+import Leaderboards from './pages/Leaderboards/Leaderboards';
 import { Profile } from './pages/Profile/Profile';
 
 import './index.css';
