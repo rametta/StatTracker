@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem, Container, Button } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 
 import './Layout.css';
@@ -49,6 +49,10 @@ export default class Layout extends Component {
                 <Link to="/account" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
 									Account
 								</Link>
+              </NavItem>
+
+              <NavItem>
+                <Button color="primary">Login <FontAwesome name="twitter" /></Button>
               </NavItem>
 
             </Nav>

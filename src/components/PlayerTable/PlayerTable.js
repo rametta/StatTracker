@@ -2,12 +2,13 @@ import React from 'react';
 import { Container, Row, Table } from 'reactstrap';
 import { TextTooltip } from './../TextTooltip/TextTooltip';
 
+import './PlayerTable.css';
+
 export const PlayerTable = props => {
   return (
     <Container fluid>
-      <Row className="section">
-
-          <Table responsive striped bordered size="sm">
+      <Row>
+          <Table responsive striped bordered>
             <thead>
               <tr>
                 <th>Date</th>
@@ -75,6 +76,58 @@ export const PlayerTable = props => {
                 <td className="text-center">3</td>
                 <td className="text-center">1</td>
                 <td className="text-center green">4.00</td>
+                <td className="text-center">6</td>
+                <td className="text-center">3</td>
+                <td className="text-center blue">1.00</td>
+              </tr>
+              <tr>
+                <td>Mar 1st, 2017</td>
+                <td>Crossfire</td>
+                <td>SND</td>
+                <td className="text-center green bold">W</td>
+                <td className="text-center">12</td>
+                <td className="text-center">3</td>
+                <td className="text-center">1</td>
+                <td className="text-center red">.76</td>
+                <td className="text-center">6</td>
+                <td className="text-center">3</td>
+                <td className="text-center blue">1.00</td>
+              </tr>
+              <tr>
+                <td>Mar 1st, 2017</td>
+                <td>Crossfire</td>
+                <td>SND</td>
+                <td className="text-center green bold">W</td>
+                <td className="text-center">12</td>
+                <td className="text-center">3</td>
+                <td className="text-center">1</td>
+                <td className="text-center red">.76</td>
+                <td className="text-center">6</td>
+                <td className="text-center">3</td>
+                <td className="text-center blue">1.00</td>
+              </tr>
+              <tr>
+                <td>Mar 1st, 2017</td>
+                <td>Crossfire</td>
+                <td>SND</td>
+                <td className="text-center green bold">W</td>
+                <td className="text-center">12</td>
+                <td className="text-center">3</td>
+                <td className="text-center">1</td>
+                <td className="text-center red">.76</td>
+                <td className="text-center">6</td>
+                <td className="text-center">3</td>
+                <td className="text-center blue">1.00</td>
+              </tr>
+              <tr>
+                <td>Mar 1st, 2017</td>
+                <td>Crossfire</td>
+                <td>SND</td>
+                <td className="text-center green bold">W</td>
+                <td className="text-center">12</td>
+                <td className="text-center">3</td>
+                <td className="text-center">1</td>
+                <td className="text-center red">.76</td>
                 <td className="text-center">6</td>
                 <td className="text-center">3</td>
                 <td className="text-center blue">1.00</td>

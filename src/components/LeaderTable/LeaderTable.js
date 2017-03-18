@@ -7,7 +7,7 @@ import './LeaderTable.css';
 
 export const LeaderTable = props => (
   <Container fluid>
-    <Row className="section">
+    <Row>
 
         <Table responsive striped className="overall-leader-table">
           <thead>

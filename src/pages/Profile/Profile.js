@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Container, Row, Col, FormGroup, Input } from 'reactstrap';
-import StatChart from './../../components/StatChart/StatChart';
+// import StatChart from './../../components/StatChart/StatChart';
 import { PlayerTable } from './../../components/PlayerTable/PlayerTable';
 import './Profile.css';
 
@@ -58,7 +58,7 @@ export default class Profile extends Component {
                         <h4><strong className="blue">Name</strong> Statistics By Map</h4>
                       </Col>
                       <Col md="3" xs="12">
-                        <FormGroup style={{marginBottom: 0}}>
+                        <FormGroup style={{marginBottom: '10px'}}>
                           <Input type="select" name="map">
                             <option>Ambush</option>
                             <option>Backlot</option>
@@ -83,7 +83,6 @@ export default class Profile extends Component {
 
                     <PlayerTable id="map"/>
 
-                    <StatChart />
                   </Col>
                 </Row>
               </TabPane>
@@ -96,7 +95,7 @@ export default class Profile extends Component {
                         <h4><strong className="blue">Name</strong> Statistics By Mode</h4>
                       </Col>
                       <Col md="3" xs="12">
-                        <FormGroup style={{marginBottom: 0}}>
+                        <FormGroup style={{marginBottom: '10px'}}>
                           <Input type="select" name="game-mode">
                             <option>Cage Match</option>
                             <option>Domination</option>
@@ -114,9 +113,7 @@ export default class Profile extends Component {
                     </Row>
 
                     <PlayerTable id="mode"/>
-
-                    <StatChart />
-                    
+              
                   </Col>
                 </Row>
               </TabPane>

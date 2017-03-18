@@ -14,8 +14,8 @@ export default class NewMatch extends Component {
 
     this.state = {
       outcome: '',
-      mode: '',
-      map: '',
+      mode: 'snd',
+      map: 'vacant',
       kills: '',
       deaths: '',
       assists: '',
@@ -25,32 +25,97 @@ export default class NewMatch extends Component {
     }
 
     this.reset = this.reset.bind(this);
+    this.submitMatch = this.submitMatch.bind(this);
     this.getWinLossRatio = this.getWinLossRatio.bind(this);
+    this.getKDRatio = this.getKDRatio.bind(this);
+    this.onMapChange = this.onMapChange.bind(this);
+    this.onModeChange = this.onModeChange.bind(this);
   }
 
   reset() {
     this.setState({
       outcome: '',
-      mode: '',
-      map: '',
+      mode: 'snd',
+      map: 'vacant',
       kills: '',
       deaths: '',
       assists: '',
-      roundWins: 0,
-      roundLosses: 0,
+      roundWins: '',
+      roundLosses: '',
       date: moment()
     });
   }
 
+  onMapChange(ev) {
+    this.setState({map: ev.target.value});
+  }
+
+  onModeChange(ev) {
+    this.setState({mode: ev.target.value});
+  }
+
+  getKDRatio() {
+    const { kills, deaths } = this.state;
+    const k = parseInt(kills, 10);
+    const d = parseInt(deaths, 10);
+
+    const ratio = k / d;
+
+    if (k > 0 && d === 0) {
+      return k;
+    }
+
+    if (d > 0 && k === 0) {
+      return 0;
+    }
+
+    if (isNaN(ratio) || !isFinite(ratio)) {
+      return '';
+    } else {
+      return (ratio).toFixed(2);
+    }
+
+  }
+
   getWinLossRatio() {
     const { roundWins, roundLosses } = this.state;
-    if( roundWins !== 0 && 
-        roundWins !== '' && 
-        roundLosses !== 0 && 
-        roundLosses !== '') {
-      return (this.state.roundWins / this.state.roundLosses).toFixed(2);
+    const w = parseInt(roundWins, 10);
+    const l = parseInt(roundLosses, 10);
+
+    const ratio = w / l;
+
+    if (w > 0 && l === 0) {
+      return roundWins;
     }
-    return 0;
+
+    if (l > 0 && w === 0) {
+      return 0;
+    }
+
+    if (isNaN(ratio) || !isFinite(ratio)) {
+      return '';
+    } else {
+      return (ratio).toFixed(2);
+    }
+  }
+
+  submitMatch() {
+    const { outcome, mode, map, kills, deaths, assists, roundWins, roundLosses, date } = this.state;
+    const match = {
+      user: 'jason',
+      outcome: outcome,
+      mode: mode,
+      map: map,
+      kills: parseInt(kills, 10),
+      deaths: parseInt(deaths, 10),
+      kdRatio: parseFloat(this.getKDRatio()),
+      assists: parseInt(assists, 10),
+      roundWins: parseInt(roundWins, 10),
+      roundLosses: parseInt(roundLosses, 10),
+      roundRatio: parseFloat(this.getWinLossRatio()),
+      date: date.toDate()
+    }
+    console.log(match);
   }
 
   render() {
@@ -63,16 +128,16 @@ export default class NewMatch extends Component {
                       color="success" 
                       size="lg" 
                       block
-                      outline={this.state.outcome === 'win' || this.state.outcome === '' ? false : true} 
-                      onClick={() => this.setState({ outcome: 'win' })} >
+                      onClick={() => this.setState({ outcome: 'W' })} 
+                      outline={this.state.outcome === 'W' || this.state.outcome === '' ? false : true}>
                 <FontAwesome name="trophy" /> WIN
               </Button>
             </Col>
             <Col sm="4" xs="12">
               <Button style={{marginBottom: '10px'}} 
                       color="danger" 
-                      onClick={() => this.setState({ outcome: 'danger' })} 
-                      outline={this.state.outcome === 'danger' || this.state.outcome === '' ? false : true} 
+                      onClick={() => this.setState({ outcome: 'L' })} 
+                      outline={this.state.outcome === 'L' || this.state.outcome === '' ? false : true} 
                       size="lg" 
                       block>
                 <FontAwesome name="times-circle-o" /> LOSS
@@ -82,8 +147,8 @@ export default class NewMatch extends Component {
               <Button style={{marginBottom: '10px'}} 
                       color="warning" 
                       outline
-                      onClick={() => this.setState({ outcome: 'warning' })} 
-                      outline={this.state.outcome === 'warning' || this.state.outcome === '' ? false : true} 
+                      onClick={() => this.setState({ outcome: 'T' })} 
+                      outline={this.state.outcome === 'T' || this.state.outcome === '' ? false : true} 
                       size="lg" 
                       block>
                 <FontAwesome name="balance-scale" /> TIE
@@ -94,40 +159,40 @@ export default class NewMatch extends Component {
             <Col sm="6" xs="12">
               <FormGroup>
                 <Label for="game-mode">Game Mode</Label>
-                <Input type="select" name="game-mode">
-                  <option>Cage Match</option>
-                  <option>Domination</option>
-                  <option>Free for all</option>
-                  <option>Ground War</option>
-                  <option>Headquarters</option>
-                  <option>Mercenary Team Deathmatch</option>
-                  <option>Sabotage</option>
-                  <option>Hardpoint</option>
-                  <option>Search and Destroy</option>
-                  <option>Team Deathmatch</option>
+                <Input type="select" name="game-mode" onChange={this.onModeChange} value="snd">
+                  <option value="cm">Cage Match</option>
+                  <option value="dom">Domination</option>
+                  <option value="ffa">Free for all</option>
+                  <option value="gw">Ground War</option>
+                  <option value="hq">Headquarters</option>
+                  <option value="mtdm">Mercenary Team Deathmatch</option>
+                  <option value="sab">Sabotage</option>
+                  <option value="hp">Hardpoint</option>
+                  <option value="snd">Search and Destroy</option>
+                  <option value="tdm">Team Deathmatch</option>
                 </Input>
               </FormGroup>
             </Col>
             <Col sm="6" xs="12">
               <FormGroup>
                 <Label for="map">Map</Label>
-                <Input type="select" name="map">
-                  <option>Ambush</option>
-                  <option>Backlot</option>
-                  <option>Bloc</option>
-                  <option>Bog</option>
-                  <option>Countdown</option>
-                  <option>Crash</option>
-                  <option>Crossfire</option>
-                  <option>District</option>
-                  <option>Downpour</option>
-                  <option>Overgrown</option>
-                  <option>Pipeline</option>
-                  <option>Shipment</option>
-                  <option>Showdown</option>
-                  <option>Strike</option>
-                  <option>Vacant</option>
-                  <option>Wet Work</option>
+                <Input type="select" name="map" onChange={this.onMapChange} value="vacant">
+                  <option value="ambush">Ambush</option>
+                  <option value="backlot">Backlot</option>
+                  <option value="bloc">Bloc</option>
+                  <option value="bog">Bog</option>
+                  <option value="countdown">Countdown</option>
+                  <option value="crash">Crash</option>
+                  <option value="crossfire">Crossfire</option>
+                  <option value="district">District</option>
+                  <option value="downpour">Downpour</option>
+                  <option value="overgrown">Overgrown</option>
+                  <option value="pipeline">Pipeline</option>
+                  <option value="shipment">Shipment</option>
+                  <option value="showdown">Showdown</option>
+                  <option value="strike">Strike</option>
+                  <option value="vacant">Vacant</option>
+                  <option value="wetwork">Wet Work</option>
                 </Input>
               </FormGroup>
             </Col>
@@ -140,7 +205,7 @@ export default class NewMatch extends Component {
                        name="kills" 
                        value={this.state.kills} 
                        onChange={(e) => this.setState({ kills: e.target.value })} 
-                       min="0" 
+                       min={0} 
                        required/>
               </FormGroup>
             </Col>
@@ -151,7 +216,7 @@ export default class NewMatch extends Component {
                        name="deaths" 
                        value={this.state.deaths} 
                        onChange={(e) => this.setState({ deaths: e.target.value })} 
-                       min="0" 
+                       min={0} 
                        required/>
               </FormGroup>
             </Col>
@@ -162,13 +227,13 @@ export default class NewMatch extends Component {
                        name="assists" 
                        value={this.state.assists} 
                        onChange={(e) => this.setState({ assists: e.target.value })} 
-                       min="0"/>
+                       min={0}/>
               </FormGroup>
             </Col>
             <Col md="3" xs="6">
               <FormGroup>
                 <Label for="kd">K/D Ratio</Label>
-                <Input type="number" name="kd" disabled/>
+                <Input type="number" name="kd" placeholder={this.getKDRatio()} disabled/>
               </FormGroup>
             </Col>
           </Row>
@@ -176,7 +241,8 @@ export default class NewMatch extends Component {
             <Col sm="4" xs="12">
               <FormGroup>
                 <Label for="round-wins">Round Wins</Label>
-                <Input type="number" 
+                <Input type="number"
+                       min={0}
                        value={this.state.roundWins} 
                        onChange={(e) => this.setState({ roundWins: e.target.value })}  
                        name="round-wins"/>
@@ -185,7 +251,8 @@ export default class NewMatch extends Component {
             <Col sm="4" xs="12">
               <FormGroup>
                 <Label for="round-losses">Round Losses</Label>
-                <Input type="number" 
+                <Input type="number"
+                       min={0}
                        value={this.state.roundLosses} 
                        onChange={(e) => this.setState({ roundLosses: e.target.value })}  
                        name="round-losses"/>
@@ -216,7 +283,7 @@ export default class NewMatch extends Component {
           </Row>
           <Row style={{marginTop: '30px', marginBottom: '30px'}}>
             <Col>
-              <Button color="primary" size="lg" style={{marginRight: '20px'}} >ADD MATCH</Button>
+              <Button color="primary" size="lg" style={{marginRight: '20px'}} onClick={this.submitMatch} >ADD MATCH</Button>
               <Button color="primary" outline size="lg" onClick={this.reset}>RESET</Button>
             </Col>
           </Row>

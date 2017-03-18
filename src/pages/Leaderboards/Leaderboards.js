@@ -58,7 +58,7 @@ export default class Leaderboards extends Component {
                         <h4>Statistics By Map</h4>
                       </Col>
                       <Col md="3" xs="12">
-                        <FormGroup style={{marginBottom: 0}}>
+                        <FormGroup style={{marginBottom: '10px'}}>
                           <Input type="select" name="map">
                             <option>Ambush</option>
                             <option>Backlot</option>
@@ -94,7 +94,7 @@ export default class Leaderboards extends Component {
                         <h4>Statistics By Mode</h4>
                       </Col>
                       <Col md="3" xs="12">
-                        <FormGroup style={{marginBottom: 0}}>
+                        <FormGroup style={{marginBottom: '10px'}}>
                           <Input type="select" name="game-mode">
                             <option>Cage Match</option>
                             <option>Domination</option>

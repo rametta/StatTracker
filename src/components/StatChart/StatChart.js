@@ -53,7 +53,7 @@ export default class StatChart extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    //console.log(nextProps);
   }
 
   render() {

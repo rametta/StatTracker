@@ -6,6 +6,10 @@ td {
   white-space: nowrap;
 }
 
+.table {
+  margin-bottom: 0 !important;
+}
+
 .section {
   margin-top: 15px;
 }
@@ -24,4 +28,8 @@ td {
 
 .bold {
   font-weight: bold;
+}
+
+.border {
+  border: 1px solid #eceeef;
 }

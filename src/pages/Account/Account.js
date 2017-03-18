@@ -1,8 +1,9 @@
 import React from 'react';
+import { Container } from 'reactstrap';
 import './Account.css';
 
 export const Account = props => (
-  <div className="Account-container">
-    Account page
-  </div>
+  <Container>
+    Account page coming soon...
+  </Container>
 );
