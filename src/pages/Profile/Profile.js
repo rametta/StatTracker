@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Container, Row, Col, FormGroup, Input } from 'reactstrap';
+import StatChart from './../../components/StatChart/StatChart';
 import { PlayerTable } from './../../components/PlayerTable/PlayerTable';
 import './Profile.css';
 
@@ -9,7 +10,7 @@ export default class Profile extends Component {
     super(props);
 
     this.toggleTab = this.toggleTab.bind(this);
-    this.state = { activeTab: 'overall' };
+    this.state = { activeTab: 'overall' }
   }
 
   toggleTab(activeTab) {
@@ -43,8 +44,8 @@ export default class Profile extends Component {
               <TabPane tabId="overall">
                 <Row className="section">
                   <Col sm="12">
-                    <h4>NAME's Overall Statistics</h4>
-                    <PlayerTable />
+                    <h4><strong className="blue">Name</strong> Overall Statistics</h4>
+                    <PlayerTable id="overall"/>
                   </Col>
                 </Row>
               </TabPane>
@@ -54,7 +55,7 @@ export default class Profile extends Component {
 
                     <Row>
                       <Col md="9">
-                        <h4>NAME's Statistics By Map</h4>
+                        <h4><strong className="blue">Name</strong> Statistics By Map</h4>
                       </Col>
                       <Col md="3" xs="12">
                         <FormGroup style={{marginBottom: 0}}>
@@ -80,7 +81,9 @@ export default class Profile extends Component {
                       </Col>
                     </Row>
 
-                    <PlayerTable />
+                    <PlayerTable id="map"/>
+
+                    <StatChart />
                   </Col>
                 </Row>
               </TabPane>
@@ -90,7 +93,7 @@ export default class Profile extends Component {
 
                     <Row>
                       <Col md="9">
-                        <h4>NAME's Statistics By Mode</h4>
+                        <h4><strong className="blue">Name</strong> Statistics By Mode</h4>
                       </Col>
                       <Col md="3" xs="12">
                         <FormGroup style={{marginBottom: 0}}>
@@ -109,8 +112,11 @@ export default class Profile extends Component {
                         </FormGroup>
                       </Col>
                     </Row>
+
+                    <PlayerTable id="mode"/>
+
+                    <StatChart />
                     
-                    <PlayerTable />
                   </Col>
                 </Row>
               </TabPane>

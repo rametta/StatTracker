@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+import FontAwesome from 'react-fontawesome';
 
 import './Layout.css';
 
@@ -56,6 +57,11 @@ export default class Layout extends Component {
         <div>
           {this.props.children}
         </div>
+        <footer className="footer text-center">
+          <Container>
+            <span className="text-muted">Made with <FontAwesome name="heart red" /> By <a href="http://rametta.org" target="_blank">Jason</a></span>
+          </Container>
+        </footer>
       </div>
     );
   }
