@@ -2,6 +2,26 @@ a {
   text-decoration: none !important;
 }
 
+td {
+  white-space: nowrap;
+}
+
 .section {
   margin-top: 15px;
+}
+
+.green {
+  color: rgb(59, 214, 126);
+}
+
+.red {
+  color: rgb(239, 69, 69);
+}
+
+.blue {
+  color: rgb(92, 152, 249);
+}
+
+.bold {
+  font-weight: bold;
 }

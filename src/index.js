@@ -13,7 +13,7 @@ import { Home } from './pages/Home/Home';
 import NewMatch from './pages/NewMatch/NewMatch';
 import { Account } from './pages/Account/Account';
 import Leaderboards from './pages/Leaderboards/Leaderboards';
-import { Profile } from './pages/Profile/Profile';
+import Profile from './pages/Profile/Profile';
 
 import './index.css';
 
