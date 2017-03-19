@@ -104,7 +104,7 @@ export default class NewMatch extends Component {
   submitMatch() {
     const { outcome, mode, map, kills, deaths, assists, roundWins, roundLosses, date } = this.state;
     const uid = firebaseAuth().currentUser.uid;
-    console.log(firebaseAuth().currentUser);
+
     const match = {
       uid: uid,
       outcome: outcome,
@@ -122,8 +122,6 @@ export default class NewMatch extends Component {
 
     db.ref(`stats/${uid}/matches`).push(match)
     .catch(err => console.error(err));
-
-    console.log(match);
   }
 
   render() {

@@ -11,9 +11,6 @@ import NewMatch from './pages/NewMatch/NewMatch';
 import Account from './pages/Account/Account';
 import Leaderboards from './pages/Leaderboards/Leaderboards';
 import Profile from './pages/Profile/Profile';
-import Login from './pages/Login/Login';
-import Signup from './pages/Signup/Signup';
-
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -26,8 +23,6 @@ ReactDOM.render(
       <IndexRoute component={Leaderboards}/>
       <Route path="/match/new" component={NewMatch} />
       <Route path="/account" component={Account} />
-      <Route path="/signup" component={Signup} />
-      <Route path="/login" component={Login} />
       <Route path="/profile/:gamertag" component={Profile} />
     </Route>
   </Router>,

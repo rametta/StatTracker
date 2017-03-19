@@ -12,20 +12,18 @@ export default class Layout extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
-    this.login = this.login.bind(this);
+    this.twitterLogin = this.twitterLogin.bind(this);
     this.logout = this.logout.bind(this);
     this.state = { 
       isOpen: false,
-      user: null,
-      loading: true
+      user: null
     };
-
   }
 
   componentDidMount() {
     firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ user, loading: false });
+        this.setState({ user });
         this.props.router.push('/');
       }
     });
@@ -36,14 +34,14 @@ export default class Layout extends Component {
     firebaseAuth().signOut()
       .then(res => {
         this.setState({ user: null });
-        this.props.router.push('/login');
+        this.props.router.push('/');
       })
       .catch(err => console.error(err));
   }
 
-  login() {
-    this.toggle();
-    this.props.router.push('/login');    
+  twitterLogin() {
+    const provider = new firebaseAuth.TwitterAuthProvider();
+    firebaseAuth().signInWithRedirect(provider);
   }
 
   toggle() {
@@ -57,7 +55,7 @@ export default class Layout extends Component {
       <div>
         <Navbar color="faded" light toggleable>
           <NavbarToggler right onClick={this.toggle} />
-          <Link to="/" className="navbar-brand">COD STATS {this.state.loading ? <FontAwesome name="spinner" spin /> : null}</Link>
+          <Link to="/" className="navbar-brand">COD STATS</Link>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
             {
@@ -69,12 +67,11 @@ export default class Layout extends Component {
                 </NavItem>
               : null
             }
-              
             
             {
               this.state.user ?
                 <NavItem>
-                  <Link onClick={this.toggle} to="/profile/rametta" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
+                  <Link onClick={this.toggle} to={`/profile/${this.state.user.uid}`} className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
                     My Stats
                   </Link>
                 </NavItem>
@@ -89,11 +86,7 @@ export default class Layout extends Component {
                   </Link>
                 </NavItem>
               :
-                <NavItem>
-                  <Link onClick={this.toggle} to="/signup" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
-                    Signup
-                  </Link>
-                </NavItem>
+              null
             }
 
             {
@@ -103,7 +96,7 @@ export default class Layout extends Component {
                 </NavItem>
               :
                 <NavItem>
-                  <Button color="primary" outline onClick={this.login}>Login <FontAwesome name="user" /></Button>
+                  <Button color="primary" onClick={this.twitterLogin}><FontAwesome name="twitter" /> Login</Button>
                 </NavItem>
             }
             </Nav>

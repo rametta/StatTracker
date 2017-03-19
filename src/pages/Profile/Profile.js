@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Container, Row, Col, FormGroup, Input } from 'reactstrap';
 // import StatChart from './../../components/StatChart/StatChart';
 import { PlayerTable } from './../../components/PlayerTable/PlayerTable';
+import { firebaseAuth } from './../../config/constants';
 import './Profile.css';
 
 export default class Profile extends Component {
@@ -10,7 +11,18 @@ export default class Profile extends Component {
     super(props);
 
     this.toggleTab = this.toggleTab.bind(this);
-    this.state = { activeTab: 'overall' }
+    this.state = { 
+      activeTab: 'overall',
+      user: null
+    }
+  }
+
+  componentDidMount() {
+    firebaseAuth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ user });
+      }
+    });
   }
 
   toggleTab(activeTab) {
@@ -44,7 +56,7 @@ export default class Profile extends Component {
               <TabPane tabId="overall">
                 <Row className="section">
                   <Col sm="12">
-                    <h4><strong className="blue">Name</strong> Overall Statistics</h4>
+                    <h4>{this.state.user ? <strong className="blue">{this.state.user.displayName}</strong> : null} Overall Statistics</h4>
                     <PlayerTable id="overall"/>
                   </Col>
                 </Row>
@@ -55,7 +67,7 @@ export default class Profile extends Component {
 
                     <Row>
                       <Col md="9">
-                        <h4><strong className="blue">Name</strong> Statistics By Map</h4>
+                        <h4>{this.state.user ? <strong className="blue">{this.state.user.displayName}</strong> : null} Statistics By Map</h4>
                       </Col>
                       <Col md="3" xs="12">
                         <FormGroup style={{marginBottom: '10px'}}>
@@ -92,7 +104,7 @@ export default class Profile extends Component {
 
                     <Row>
                       <Col md="9">
-                        <h4><strong className="blue">Name</strong> Statistics By Mode</h4>
+                        <h4>{this.state.user ? <strong className="blue">{this.state.user.displayName}</strong> : null} Statistics By Mode</h4>
                       </Col>
                       <Col md="3" xs="12">
                         <FormGroup style={{marginBottom: '10px'}}>
