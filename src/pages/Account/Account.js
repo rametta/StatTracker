@@ -74,10 +74,10 @@ export default class Account extends Component {
             }
             <FormGroup>
               <Label for="email"><FontAwesome name="envelope"/> Email</Label>
-              <Input disabled type="email" name="email" id="email" value={this.state.user ? this.state.user.email : ''} placeholder="Email..." />
+              <Input disabled type="email" name="email" id="email" placeholder={this.state.user ? this.state.user.email || 'Email...'  : 'Email...'} />
             </FormGroup>
             <FormGroup>
-              <Label for="gamer-tag"><FontAwesome name="gamepad"/> Gamertag</Label>
+              <Label for="gamer-tag"><FontAwesome name="gamepad"/> Display Name</Label>
               <Input type="text" name="gamer-tag" id="gamer-tag" value={this.state.user ? this.state.gamertag : ''} onChange={e => this.setState({ gamertag: e.target.value })} placeholder="Gamertag..." />
             </FormGroup>
             <FormGroup>

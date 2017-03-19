@@ -9,6 +9,7 @@ export default class Signup extends Component {
     super(props);
 
     this.signup = this.signup.bind(this);
+    this.twitterLogin = this.twitterLogin.bind(this);
 
     this.state = {
       email: '',
@@ -28,6 +29,11 @@ export default class Signup extends Component {
     firebaseAuth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(res => this.props.router.push('/'))
       .catch((error) => this.error(error.code, error.message));
+  }
+
+  twitterLogin() {
+    const provider = new firebaseAuth.TwitterAuthProvider();
+    firebaseAuth().signInWithRedirect(provider);
   }
 
   error(code, message) {
@@ -64,6 +70,7 @@ export default class Signup extends Component {
             </FormGroup>
             <FormGroup>
               <Button color="primary" onClick={this.signup}>Signup <FontAwesome name="angle-right"/></Button>
+              <Button color="primary" style={{marginLeft: '20px'}} outline onClick={this.twitterLogin}>Login With Twitter <FontAwesome name="twitter"/></Button>
             </FormGroup>
           </Col>
         </Row>

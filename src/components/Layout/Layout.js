@@ -16,19 +16,17 @@ export default class Layout extends Component {
     this.logout = this.logout.bind(this);
     this.state = { 
       isOpen: false,
-      user: null
+      user: null,
+      loading: true
     };
 
   }
 
   componentDidMount() {
-    //console.log(firebaseAuth().currentUser);
     firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ user });
-        console.log(user);
-      } else {
-        //console.error('onAuthStateChange');
+        this.setState({ user, loading: false });
+        this.props.router.push('/');
       }
     });
   }
@@ -38,7 +36,7 @@ export default class Layout extends Component {
     firebaseAuth().signOut()
       .then(res => {
         this.setState({ user: null });
-        this.props.router.push('/');
+        this.props.router.push('/login');
       })
       .catch(err => console.error(err));
   }
@@ -59,7 +57,7 @@ export default class Layout extends Component {
       <div>
         <Navbar color="faded" light toggleable>
           <NavbarToggler right onClick={this.toggle} />
-          <Link to="/" className="navbar-brand">COD STATS</Link>
+          <Link to="/" className="navbar-brand">COD STATS {this.state.loading ? <FontAwesome name="spinner" spin /> : null}</Link>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
             {
