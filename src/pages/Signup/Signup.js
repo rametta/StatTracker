@@ -3,12 +3,12 @@ import { Container, FormGroup, Label, Input, Col, Row, Button, UncontrolledAlert
 import FontAwesome from 'react-fontawesome';
 import { firebaseAuth } from './../../config/constants';
 
-export default class Login extends Component {
+export default class Signup extends Component {
 
   constructor(props) {
     super(props);
 
-    this.login = this.login.bind(this);
+    this.signup = this.signup.bind(this);
 
     this.state = {
       email: '',
@@ -19,13 +19,13 @@ export default class Login extends Component {
     }
   }
 
-  login() {
+  signup() {
     if(!this.state.email || !this.state.password) {
       this.error('Uh Oh!', 'You best fill in all the fields yo...');
       return;
     }
 
-    firebaseAuth().signInWithEmailAndPassword(this.state.email, this.state.password)
+    firebaseAuth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(res => this.props.router.push('/'))
       .catch((error) => this.error(error.code, error.message));
   }
@@ -63,7 +63,7 @@ export default class Login extends Component {
               <Input type="password" required onChange={e => this.setState({password: e.target.value})} value={this.state.password}></Input>
             </FormGroup>
             <FormGroup>
-              <Button color="primary" onClick={this.login}>Login <FontAwesome name="angle-right"/></Button>
+              <Button color="primary" onClick={this.signup}>Signup <FontAwesome name="angle-right"/></Button>
             </FormGroup>
           </Col>
         </Row>

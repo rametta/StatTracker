@@ -4,7 +4,7 @@ import { Collapse, Navbar, NavbarToggler, Nav, NavItem, Container, Button } from
 import FontAwesome from 'react-fontawesome';
 import './Layout.css';
 
-import { firebaseAuth, provider } from './../../config/constants'
+import { firebaseAuth } from './../../config/constants'
 
 export default class Layout extends Component {
 
@@ -19,53 +19,33 @@ export default class Layout extends Component {
       user: null
     };
 
+  }
+
+  componentDidMount() {
+    //console.log(firebaseAuth().currentUser);
     firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
         console.log(user);
       } else {
-        console.error('onAuthStateChange');
+        //console.error('onAuthStateChange');
       }
     });
-
-    firebaseAuth().getRedirectResult()
-      .then((result) => {
-        if (result.credential) {
-          // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
-          // You can use these server side with your app's credentials to access the Twitter API.
-          // var token = result.credential.accessToken;
-          // var secret = result.credential.secret;
-        }
-        // var user = result.user;
-      })
-      .catch((error) => {
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
-        // var email = error.email;
-        // var credential = error.credential;
-        
-        console.error(error);
-      });
-  }
-
-  componentDidMount() {
-    //console.log(firebaseAuth().currentUser);
   }
 
   logout() {
-    firebaseAuth().signOut();
-    console.log(firebaseAuth().currentUser);
+    this.toggle();
+    firebaseAuth().signOut()
+      .then(res => {
+        this.setState({ user: null });
+        this.props.router.push('/');
+      })
+      .catch(err => console.error(err));
   }
 
   login() {
-    if (!firebaseAuth().currentUser) {
-      console.log(firebaseAuth().currentUser);
-      firebaseAuth().signInWithRedirect(provider);
-    } else {
-      console.log(firebaseAuth().currentUser);
-      console.log('Already signed in');
-    }
-    
+    this.toggle();
+    this.props.router.push('/login');    
   }
 
   toggle() {
@@ -82,39 +62,52 @@ export default class Layout extends Component {
           <Link to="/" className="navbar-brand">COD STATS</Link>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-
-              <NavItem>
-                <Link onClick={this.toggle} to="/match/new" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
-									New Match
-								</Link>
-              </NavItem>
-
-              <NavItem>
-                <Link onClick={this.toggle} to="/profile/rametta" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
-									My Stats
-								</Link>
-              </NavItem>
-
-              <NavItem>
-                <Link onClick={this.toggle} to="/account" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
-									Account
-								</Link>
-              </NavItem>
-
-              <NavItem>
-
-              {
-                this.state.user
-                ?
-                <Button color="primary" outline onClick={this.logout}>Logout <FontAwesome name="twitter" /></Button>
-                :
-                <Button color="primary" onClick={this.login}>Login <FontAwesome name="twitter" /></Button>
-              }
-                
-
-              </NavItem>
+            {
+              this.state.user ?
+                <NavItem>
+                  <Link onClick={this.toggle} to="/match/new" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
+                    New Match
+                  </Link>
+                </NavItem>
+              : null
+            }
               
+            
+            {
+              this.state.user ?
+                <NavItem>
+                  <Link onClick={this.toggle} to="/profile/rametta" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
+                    My Stats
+                  </Link>
+                </NavItem>
+              : null
+            }
 
+            {
+              this.state.user ?
+                <NavItem>
+                  <Link onClick={this.toggle} to="/account" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
+                    Account
+                  </Link>
+                </NavItem>
+              :
+                <NavItem>
+                  <Link onClick={this.toggle} to="/signup" className="nav-link" activeStyle={{ color: '#4a4a4a' }}>
+                    Signup
+                  </Link>
+                </NavItem>
+            }
+
+            {
+              this.state.user ?
+                <NavItem>
+                  <Button color="primary" outline onClick={this.logout}>Logout</Button>
+                </NavItem>
+              :
+                <NavItem>
+                  <Button color="primary" outline onClick={this.login}>Login <FontAwesome name="user" /></Button>
+                </NavItem>
+            }
             </Nav>
           </Collapse>
         </Navbar>

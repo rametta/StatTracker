@@ -291,8 +291,8 @@ export default class NewMatch extends Component {
           </Row>
           <Row style={{marginTop: '30px', marginBottom: '30px'}}>
             <Col>
-              <Button color="primary" size="lg" style={{marginRight: '20px'}} onClick={this.submitMatch} >ADD MATCH</Button>
-              <Button color="primary" outline size="lg" onClick={this.reset}>RESET</Button>
+              <Button color="primary" style={{marginRight: '20px'}} onClick={this.submitMatch} >ADD MATCH</Button>
+              <Button color="primary" outline onClick={this.reset}>RESET</Button>
             </Col>
           </Row>
       </Container>
