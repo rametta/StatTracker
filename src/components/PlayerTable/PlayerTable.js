@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Table } from 'reactstrap';
 import { TextTooltip } from './../TextTooltip/TextTooltip';
+import { FormatDate, OutcomeStyle, RatioStyle } from './../../config/utils';
 
 import './PlayerTable.css';
 
@@ -41,110 +42,25 @@ export const PlayerTable = props => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Mar 1st, 2017</td>
-                <td>Crossfire</td>
-                <td>SND</td>
-                <td className="text-center green bold">W</td>
-                <td className="text-center">12</td>
-                <td className="text-center">3</td>
-                <td className="text-center">1</td>
-                <td className="text-center green">4.00</td>
-                <td className="text-center">6</td>
-                <td className="text-center">3</td>
-                <td className="text-center green">2.00</td>
-              </tr>
-              <tr>
-                <td>Mar 1st, 2017</td>
-                <td>Crossfire</td>
-                <td>SND</td>
-                <td className="text-center red bold">L</td>
-                <td className="text-center">12</td>
-                <td className="text-center">3</td>
-                <td className="text-center">1</td>
-                <td className="text-center blue">1.00</td>
-                <td className="text-center">6</td>
-                <td className="text-center">3</td>
-                <td className="text-center red">0.50</td>
-              </tr>
-              <tr>
-                <td>Mar 1st, 2017</td>
-                <td>Crossfire</td>
-                <td>SND</td>
-                <td className="text-center blue bold">T</td>
-                <td className="text-center">12</td>
-                <td className="text-center">3</td>
-                <td className="text-center">1</td>
-                <td className="text-center green">4.00</td>
-                <td className="text-center">6</td>
-                <td className="text-center">3</td>
-                <td className="text-center blue">1.00</td>
-              </tr>
-              <tr>
-                <td>Mar 1st, 2017</td>
-                <td>Crossfire</td>
-                <td>SND</td>
-                <td className="text-center green bold">W</td>
-                <td className="text-center">12</td>
-                <td className="text-center">3</td>
-                <td className="text-center">1</td>
-                <td className="text-center red">.76</td>
-                <td className="text-center">6</td>
-                <td className="text-center">3</td>
-                <td className="text-center blue">1.00</td>
-              </tr>
-              <tr>
-                <td>Mar 1st, 2017</td>
-                <td>Crossfire</td>
-                <td>SND</td>
-                <td className="text-center green bold">W</td>
-                <td className="text-center">12</td>
-                <td className="text-center">3</td>
-                <td className="text-center">1</td>
-                <td className="text-center red">.76</td>
-                <td className="text-center">6</td>
-                <td className="text-center">3</td>
-                <td className="text-center blue">1.00</td>
-              </tr>
-              <tr>
-                <td>Mar 1st, 2017</td>
-                <td>Crossfire</td>
-                <td>SND</td>
-                <td className="text-center green bold">W</td>
-                <td className="text-center">12</td>
-                <td className="text-center">3</td>
-                <td className="text-center">1</td>
-                <td className="text-center red">.76</td>
-                <td className="text-center">6</td>
-                <td className="text-center">3</td>
-                <td className="text-center blue">1.00</td>
-              </tr>
-              <tr>
-                <td>Mar 1st, 2017</td>
-                <td>Crossfire</td>
-                <td>SND</td>
-                <td className="text-center green bold">W</td>
-                <td className="text-center">12</td>
-                <td className="text-center">3</td>
-                <td className="text-center">1</td>
-                <td className="text-center red">.76</td>
-                <td className="text-center">6</td>
-                <td className="text-center">3</td>
-                <td className="text-center blue">1.00</td>
-              </tr>
-              <tr>
-                <td>Mar 1st, 2017</td>
-                <td>Crossfire</td>
-                <td>SND</td>
-                <td className="text-center green bold">W</td>
-                <td className="text-center">12</td>
-                <td className="text-center">3</td>
-                <td className="text-center">1</td>
-                <td className="text-center red">.76</td>
-                <td className="text-center">6</td>
-                <td className="text-center">3</td>
-                <td className="text-center blue">1.00</td>
-              </tr>
+            {
+              props.matches ?
+              props.matches.map((m, i) => (
+                <tr key={i}>
+                  <td>{FormatDate(m.date)}</td>
+                  <td className="capitalize">{m.map}</td>
+                  <td className="uppercase">{m.mode}</td>
+                  <td className={`text-center bold ${OutcomeStyle(m.outcome)}`}>{m.outcome}</td>
+                  <td className="text-center">{m.kills}</td>
+                  <td className="text-center">{m.deaths}</td>
+                  <td className="text-center">{m.assists}</td>
+                  <td className={`text-center ${RatioStyle(m.kdRatio)}`}>{m.kdRatio}</td>
+                  <td className="text-center">{m.roundWins}</td>
+                  <td className="text-center">{m.roundLosses}</td>
+                  <td className={`text-center ${RatioStyle(m.roundRatio)}`}>{m.roundRatio}</td>
+                </tr>
+              ))
+              : null
+            }
             </tbody>
           </Table>
 

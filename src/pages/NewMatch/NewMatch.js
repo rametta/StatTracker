@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Container, Row, Col, FormGroup, Label, Input, Button, UncontrolledAlert } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
@@ -103,6 +103,12 @@ export default class NewMatch extends Component {
 
   submitMatch() {
     const { outcome, mode, map, kills, deaths, assists, roundWins, roundLosses, date } = this.state;
+    
+    if(!firebaseAuth().currentUser) {
+      this.error();
+      return;
+    }
+
     const uid = firebaseAuth().currentUser.uid;
 
     const match = {
@@ -121,7 +127,24 @@ export default class NewMatch extends Component {
     }
 
     db.ref(`stats/${uid}/matches`).push(match)
-    .catch(err => console.error(err));
+      .then(() => { 
+        this.setState({
+          alertType: 'success',
+          alertVisible: true,
+          errorCode: 'Congrats mate!',
+          errorMessage: `Your new match has been saved successfully.`
+        }) 
+      })
+      .catch(err => this.error())
+  }
+
+  error() {
+    this.setState({
+      alertType: 'danger',
+      alertVisible: true,
+      errorCode: 'Uh Oh!',
+      errorMessage: `Something went wrong... We have our best monkey's working on the job!`
+    })
   }
 
   render() {
@@ -287,7 +310,20 @@ export default class NewMatch extends Component {
               />
             </Col>
           </Row>
-          <Row style={{marginTop: '30px', marginBottom: '30px'}}>
+          {
+            this.state.alertVisible
+            ?
+            <Row style={{marginTop: '30px'}}>
+              <Col xs="12">
+                <UncontrolledAlert color={this.state.alertType}>
+                  <strong>{this.state.errorCode}</strong> {this.state.errorMessage}
+                </UncontrolledAlert>
+              </Col>
+            </Row>
+            :
+            null
+          }
+          <Row style={{marginTop: '20px', marginBottom: '30px'}}>
             <Col>
               <Button color="primary" style={{marginRight: '20px'}} onClick={this.submitMatch} >ADD MATCH</Button>
               <Button color="primary" outline onClick={this.reset}>RESET</Button>

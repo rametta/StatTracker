@@ -33,3 +33,11 @@ td {
 .border {
   border: 1px solid #eceeef;
 }
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}

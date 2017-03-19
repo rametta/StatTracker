@@ -10,7 +10,11 @@ export default class Leaderboards extends Component {
     super(props);
 
     this.toggleTab = this.toggleTab.bind(this);
-    this.state = { activeTab: 'overall' };
+    this.state = { 
+      activeTab: 'overall',
+      map: 'vacant',
+      mode: 'snd'
+    };
   }
 
   toggleTab(activeTab) {
@@ -59,23 +63,23 @@ export default class Leaderboards extends Component {
                       </Col>
                       <Col md="3" xs="12">
                         <FormGroup style={{marginBottom: '10px'}}>
-                          <Input type="select" name="map">
-                            <option>Ambush</option>
-                            <option>Backlot</option>
-                            <option>Bloc</option>
-                            <option>Bog</option>
-                            <option>Countdown</option>
-                            <option>Crash</option>
-                            <option>Crossfire</option>
-                            <option>District</option>
-                            <option>Downpour</option>
-                            <option>Overgrown</option>
-                            <option>Pipeline</option>
-                            <option>Shipment</option>
-                            <option>Showdown</option>
-                            <option>Strike</option>
-                            <option>Vacant</option>
-                            <option>Wet Work</option>
+                          <Input type="select" name="map" onChange={ (ev) => this.setState({ map: ev.target.value }) } value={this.state.map}>
+                            <option value="ambush">Ambush</option>
+                            <option value="backlot">Backlot</option>
+                            <option value="bloc">Bloc</option>
+                            <option value="bog">Bog</option>
+                            <option value="countdown">Countdown</option>
+                            <option value="crash">Crash</option>
+                            <option value="crossfire">Crossfire</option>
+                            <option value="district">District</option>
+                            <option value="downpour">Downpour</option>
+                            <option value="overgrown">Overgrown</option>
+                            <option value="pipeline">Pipeline</option>
+                            <option value="shipment">Shipment</option>
+                            <option value="showdown">Showdown</option>
+                            <option value="strike">Strike</option>
+                            <option value="vacant">Vacant</option>
+                            <option value="wetwork">Wet Work</option>
                           </Input>
                         </FormGroup>
                       </Col>
@@ -95,17 +99,17 @@ export default class Leaderboards extends Component {
                       </Col>
                       <Col md="3" xs="12">
                         <FormGroup style={{marginBottom: '10px'}}>
-                          <Input type="select" name="game-mode">
-                            <option>Cage Match</option>
-                            <option>Domination</option>
-                            <option>Free for all</option>
-                            <option>Ground War</option>
-                            <option>Headquarters</option>
-                            <option>Mercenary Team Deathmatch</option>
-                            <option>Sabotage</option>
-                            <option>Hardpoint</option>
-                            <option>Search and Destroy</option>
-                            <option>Team Deathmatch</option>
+                          <Input type="select" name="game-mode" onChange={ (ev) => this.setState({ mode: ev.target.value }) } value={this.state.mode}>
+                            <option value="cm">Cage Match</option>
+                            <option value="dom">Domination</option>
+                            <option value="ffa">Free for all</option>
+                            <option value="gw">Ground War</option>
+                            <option value="hq">Headquarters</option>
+                            <option value="mtdm">Mercenary Team Deathmatch</option>
+                            <option value="sab">Sabotage</option>
+                            <option value="hp">Hardpoint</option>
+                            <option value="snd">Search and Destroy</option>
+                            <option value="tdm">Team Deathmatch</option>
                           </Input>
                         </FormGroup>
                       </Col>

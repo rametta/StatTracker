@@ -24,7 +24,7 @@ export default class Layout extends Component {
     firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
-        this.props.router.push('/');
+        //this.props.router.push('/');
       }
     });
   }

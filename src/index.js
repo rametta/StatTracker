@@ -23,7 +23,7 @@ ReactDOM.render(
       <IndexRoute component={Leaderboards}/>
       <Route path="/match/new" component={NewMatch} />
       <Route path="/account" component={Account} />
-      <Route path="/profile/:gamertag" component={Profile} />
+      <Route path="/profile/:uid" component={Profile} />
     </Route>
   </Router>,
   document.getElementById('root')
