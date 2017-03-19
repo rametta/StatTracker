@@ -165,7 +165,7 @@ export default class NewMatch extends Component {
             <Col sm="6" xs="12">
               <FormGroup>
                 <Label for="game-mode">Game Mode</Label>
-                <Input type="select" name="game-mode" onChange={this.onModeChange} value="snd">
+                <Input type="select" name="game-mode" onChange={this.onModeChange} value={this.state.mode}>
                   <option value="cm">Cage Match</option>
                   <option value="dom">Domination</option>
                   <option value="ffa">Free for all</option>
@@ -182,7 +182,7 @@ export default class NewMatch extends Component {
             <Col sm="6" xs="12">
               <FormGroup>
                 <Label for="map">Map</Label>
-                <Input type="select" name="map" onChange={this.onMapChange} value="vacant">
+                <Input type="select" name="map" onChange={this.onMapChange} value={this.state.map}>
                   <option value="ambush">Ambush</option>
                   <option value="backlot">Backlot</option>
                   <option value="bloc">Bloc</option>
