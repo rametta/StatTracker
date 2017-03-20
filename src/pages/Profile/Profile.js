@@ -9,15 +9,11 @@ import './Profile.css';
 
 export default class Profile extends Component {
 
- constructor(props) {
-    super(props);
-
-    this.state = { 
-      map: '',
-      mode: '',
-      user: null,
-      matches: []
-    }
+  state = { 
+    map: '',
+    mode: '',
+    user: null,
+    matches: []
   }
 
   componentDidMount() {
@@ -52,7 +48,7 @@ export default class Profile extends Component {
 
           <Col sm="6" xs="12" className="section profile-header">
             <img alt="" src={this.state.user ? this.state.user.photoURL : null} className="player-thumb"/>
-            <h4 className="player-name">{this.state.user ? <strong className="blue">{this.state.user.displayName}</strong> : null}</h4>
+            <h2>{this.state.user ? <span className="blue">{this.state.user.displayName}</span> : null}</h2>
           </Col>
 
           <Col sm="3" xs="6" className="section">
@@ -68,7 +64,10 @@ export default class Profile extends Component {
         <Row className="section">
 
           <Col xs="12">
-            <PlayerTable id="overall" matches={this.state.matches} mapFilter={this.state.map} modeFilter={this.state.mode}/>
+            <PlayerTable id="overall" 
+                         matches={this.state.matches} 
+                         mapFilter={this.state.map} 
+                         modeFilter={this.state.mode}/>
           </Col>
 
         </Row>

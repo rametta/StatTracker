@@ -40,50 +40,25 @@ export const LeaderTable = props => (
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><Link to="/profile/rametta">Rametta</Link></td>
-              <td className="text-center border-left">2.34</td>
-              <td className="text-center">1234</td>
-              <td className="text-center">123</td>
-              <td className="text-center">1231</td>
-              <td className="text-center border-left">.76</td>
-              <td className="text-center">450</td>
-              <td className="text-center">345</td>
-              <td className="text-center">3</td>
-            </tr>
-            <tr>
-              <td><Link to="/profile/veemerk">VeeMerk</Link></td>
-              <td className="text-center border-left">2.34</td>
-              <td className="text-center">1234</td>
-              <td className="text-center">123</td>
-              <td className="text-center">1231</td>
-              <td className="text-center border-left">.76</td>
-              <td className="text-center">450</td>
-              <td className="text-center">345</td>
-              <td className="text-center">3</td>
-            </tr>
-            <tr>
-              <td><Link to="/profile/ehlouis">EhLouis</Link></td>
-              <td className="text-center border-left">2.34</td>
-              <td className="text-center">1234</td>
-              <td className="text-center">123</td>
-              <td className="text-center">1231</td>
-              <td className="text-center border-left">.76</td>
-              <td className="text-center">450</td>
-              <td className="text-center">345</td>
-              <td className="text-center">3</td>
-            </tr>
-            <tr>
-              <td><Link to="/profile/cryonical">Cryonical</Link></td>
-              <td className="text-center border-left">2.34</td>
-              <td className="text-center">1234</td>
-              <td className="text-center">123</td>
-              <td className="text-center">1231</td>
-              <td className="text-center border-left">.76</td>
-              <td className="text-center">450</td>
-              <td className="text-center">345</td>
-              <td className="text-center">3</td>
-            </tr>
+          {
+            props.users ?
+            props.users.map(u => {
+              return (
+                <tr key={u.uid}>
+                  <td><Link to={`/profile/${u.uid}`}>User Name</Link></td>
+                  <td className="text-center border-left">{u.kd}</td>
+                  <td className="text-center">{u.kills}</td>
+                  <td className="text-center">{u.deaths}</td>
+                  <td className="text-center">{u.assists}</td>
+                  <td className="text-center border-left">{u.wl}</td>
+                  <td className="text-center">{u.w}</td>
+                  <td className="text-center">{u.l}</td>
+                  <td className="text-center">{u.t}</td>
+                </tr>
+              )
+            })
+            : null
+          }
           </tbody>
         </Table>
 
