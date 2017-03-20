@@ -36,8 +36,8 @@ export default class Leaderboards extends Component {
       //console.log(key, snap[key]);
       users.push({
         uid: key,
-        photo: snap[key].user.photo,
-        name: snap[key].user.gamertag,
+        photo: snap[key].user ? snap[key].user.photo : null,
+        name: snap[key].user ? snap[key].user.gamertag : null,
         ...aggregates
       })
 

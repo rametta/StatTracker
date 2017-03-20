@@ -24,13 +24,17 @@ export default class Account extends Component {
   componentDidMount() {
     this.fbListener = firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
+        this.setState({ user });
+
         this.ref = db.ref(`/stats/${user.uid}/user`);
         this.ref.on('value', snap => {
-          this.setState({
-            user,
-            photo: user.photoURL,
-            gamertag: snap.val().gamertag 
-          });
+          if(snap.val() !== null) {
+            this.setState({
+              user,
+              photo: user.photoURL,
+              gamertag: snap.val().gamertag 
+            });
+          }
         })
       }
     });
@@ -92,7 +96,7 @@ export default class Account extends Component {
               <Input type="text" name="gamer-tag" id="gamer-tag" value={this.state.user ? this.state.gamertag : ''} onChange={e => this.setState({ gamertag: e.target.value })} placeholder="Gamertag..." />
             </FormGroup>
             <FormGroup>
-              <Label for="photo"><FontAwesome name="image"/> Photo URL</Label>
+              <Label for="photo"><FontAwesome name="twitter"/> Photo URL</Label>
               <Input type="text" name="photo" id="photo" value={this.state.user ? this.state.photo : ''} onChange={e => this.setState({ photo: e.target.value })} placeholder="Photo URL..." />
             </FormGroup>
             {

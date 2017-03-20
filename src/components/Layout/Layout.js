@@ -4,7 +4,7 @@ import { Collapse, Navbar, NavbarToggler, Nav, NavItem, Container, Button } from
 import FontAwesome from 'react-fontawesome';
 import './Layout.css';
 
-import { firebaseAuth } from './../../config/constants'
+import { firebaseAuth, db } from './../../config/constants'
 
 export default class Layout extends Component {
 
@@ -23,10 +23,35 @@ export default class Layout extends Component {
   componentDidMount() {
     firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ user });
+        this.setState({ 
+          user 
+        });
+
+        this.ref = db.ref(`/stats/${user.uid}/user`);
+        this.ref.on('value', snap => {
+
+          if(snap.val() === null) {
+            this.ref.set({ 
+              photo: user.photoURL,
+              gamertag: user.displayName
+            });
+          }
+
+          this.setState({
+            user,
+            photo: user.photoURL,
+            gamertag: snap.val().gamertag 
+          });
+
+        })
         //this.props.router.push('/');
       }
     });
+  }
+
+  componentWillUnmount() {
+    this.ref.off();
+    this.fbListener();
   }
 
   logout() {

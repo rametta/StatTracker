@@ -4,7 +4,7 @@ import { MapSelect } from './../../components/MapSelect/MapSelect';
 import { ModeSelect } from './../../components/ModeSelect/ModeSelect'; 
 // import StatChart from './../../components/StatChart/StatChart';
 import PlayerTable from './../../components/PlayerTable/PlayerTable';
-import { firebaseAuth, db } from './../../config/constants';
+import { db } from './../../config/constants';
 import './Profile.css';
 
 export default class Profile extends Component {
@@ -17,11 +17,6 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    this.fbListener = firebaseAuth().onAuthStateChanged((user) => {
-      if (user) { 
-        this.setState({ user });
-      }
-    });
 
     const { uid } = this.props.routeParams;
     
@@ -32,12 +27,19 @@ export default class Profile extends Component {
           matches: [...this.state.matches, snap.val()]
         });
       })
+
+      this.ref2 = db.ref(`/stats/${uid}/user`);
+      this.ref2.on('value', snap => {
+        this.setState({
+          user: snap.val()
+        });
+      })
     }
   }
 
   componentWillUnmount() {
-    this.fbListener();
     this.ref.off();
+    this.ref2.off();
   }
 
   render() {
@@ -47,8 +49,8 @@ export default class Profile extends Component {
         <Row>
 
           <Col sm="6" xs="12" className="section profile-header">
-            <img alt="" src={this.state.user ? this.state.user.photoURL : null} className="player-thumb"/>
-            <h2>{this.state.user ? <span className="blue">{this.state.user.displayName}</span> : null}</h2>
+            <img alt="" src={this.state.user ? this.state.user.photo : null} className="player-thumb"/>
+            <h2>{this.state.user ? <span className="blue">{this.state.user.gamertag}</span> : null}</h2>
           </Col>
 
           <Col sm="3" xs="6" className="section">
