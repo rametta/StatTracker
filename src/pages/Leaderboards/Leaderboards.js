@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { LeaderTable } from './../../components/LeaderTable/LeaderTable';
 import { MapSelect } from './../../components/MapSelect/MapSelect';
 import { ModeSelect } from './../../components/ModeSelect/ModeSelect'; 
-import { firebaseAuth, db } from './../../config/constants';
+import { db } from './../../config/constants';
 
 import './Leaderboards.css';
 
@@ -33,10 +33,11 @@ export default class Leaderboards extends Component {
       if (!snap.hasOwnProperty(key)) continue;
 
       const aggregates = this.getAggregates(snap[key].matches);
-      //console.log(key, snap[key]);
+      console.log(key, snap[key]);
       users.push({
         uid: key,
-        name: key,
+        photo: snap[key].user.photo,
+        name: snap[key].user.gamertag,
         ...aggregates
       })
 

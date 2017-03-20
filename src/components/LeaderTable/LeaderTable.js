@@ -45,7 +45,11 @@ export const LeaderTable = props => (
             props.users.map(u => {
               return (
                 <tr key={u.uid}>
-                  <td><Link to={`/profile/${u.uid}`}>User Name</Link></td>
+                  <td>
+                    <Link to={`/profile/${u.uid}`}>
+                      <img src={u.photo} alt="" className="small-thumb"/> {u.name}
+                    </Link>
+                  </td>
                   <td className="text-center border-left">{u.kd}</td>
                   <td className="text-center">{u.kills}</td>
                   <td className="text-center">{u.deaths}</td>

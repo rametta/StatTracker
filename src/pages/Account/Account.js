@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Input, FormGroup, Label, Button, UncontrolledAlert } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
-import { firebaseAuth } from './../../config/constants';
+import { firebaseAuth, db } from './../../config/constants';
 
 export default class Account extends Component {
 
@@ -22,15 +22,24 @@ export default class Account extends Component {
   }
 
   componentDidMount() {
-    firebaseAuth().onAuthStateChanged((user) => {
+    this.fbListener = firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ 
-          user, 
-          gamertag: user.displayName, 
-          photo: user.photoURL 
-        });
+        this.ref = db.ref(`/stats/${user.uid}/user`);
+        this.ref.on('value', snap => {
+          this.setState({
+            user,
+            photo: user.photoURL,
+            gamertag: snap.val().gamertag 
+          });
+        })
       }
     });
+
+  }
+
+  componentWillUnmount() {
+    this.ref.off();
+    this.fbListener();
   }
 
   updateUser() {
@@ -38,6 +47,12 @@ export default class Account extends Component {
       displayName: this.state.gamertag,
       photoURL: this.state.photo
     }
+
+    this.ref.set({ 
+      gamertag: this.state.gamertag,
+      photo: this.state.photo
+    });
+
     this.state.user.updateProfile(update)
       .then(() => { 
         this.setState({
@@ -73,12 +88,8 @@ export default class Account extends Component {
               null
             }
             <FormGroup>
-              <Label for="email"><FontAwesome name="envelope"/> Email</Label>
-              <Input disabled type="email" name="email" id="email" placeholder={this.state.user ? this.state.user.email || 'Email...'  : 'Email...'} />
-            </FormGroup>
-            <FormGroup>
-              <Label for="gamer-tag"><FontAwesome name="gamepad"/> Display Name</Label>
-              <Input type="text" name="gamer-tag" id="gamer-tag" value={this.state.user ? this.state.gamertag : ''} onChange={e => this.setState({ gamertag: e.target.value })} placeholder="Name..." />
+              <Label for="gamer-tag"><FontAwesome name="gamepad"/> Gamertag</Label>
+              <Input type="text" name="gamer-tag" id="gamer-tag" value={this.state.user ? this.state.gamertag : ''} onChange={e => this.setState({ gamertag: e.target.value })} placeholder="Gamertag..." />
             </FormGroup>
             <FormGroup>
               <Label for="photo"><FontAwesome name="image"/> Photo URL</Label>

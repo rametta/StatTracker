@@ -9,3 +9,8 @@
 .overall-leader-table .border-right {
   border-right: 1px solid #eceeef;
 }
+
+.small-thumb {
+  max-height: 22px;
+  border-radius: 50%;
+}
