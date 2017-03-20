@@ -1,0 +1,12 @@
+.player-thumb {
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  float: left;
+  margin-right: 15px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+}

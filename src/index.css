@@ -41,3 +41,11 @@ td {
 .uppercase {
   text-transform: uppercase;
 }
+
+.hand {
+  cursor: pointer;
+}
+
+.hidden {
+  visibility: hidden;
+}

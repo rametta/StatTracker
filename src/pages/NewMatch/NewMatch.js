@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, FormGroup, Label, Input, Button, UncontrolledAlert } from 'reactstrap';
+import { MapSelect } from './../../components/MapSelect/MapSelect';
+import { ModeSelect } from './../../components/ModeSelect/ModeSelect'; 
 import FontAwesome from 'react-fontawesome';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
@@ -188,41 +190,13 @@ export default class NewMatch extends Component {
             <Col sm="6" xs="12">
               <FormGroup>
                 <Label for="game-mode">Game Mode</Label>
-                <Input type="select" name="game-mode" onChange={this.onModeChange} value={this.state.mode}>
-                  <option value="cm">Cage Match</option>
-                  <option value="dom">Domination</option>
-                  <option value="ffa">Free for all</option>
-                  <option value="gw">Ground War</option>
-                  <option value="hq">Headquarters</option>
-                  <option value="mtdm">Mercenary Team Deathmatch</option>
-                  <option value="sab">Sabotage</option>
-                  <option value="hp">Hardpoint</option>
-                  <option value="snd">Search and Destroy</option>
-                  <option value="tdm">Team Deathmatch</option>
-                </Input>
+                <ModeSelect OnSelect={mode => this.setState({ mode })} mode={this.state.mode}/>
               </FormGroup>
             </Col>
             <Col sm="6" xs="12">
               <FormGroup>
                 <Label for="map">Map</Label>
-                <Input type="select" name="map" onChange={this.onMapChange} value={this.state.map}>
-                  <option value="ambush">Ambush</option>
-                  <option value="backlot">Backlot</option>
-                  <option value="bloc">Bloc</option>
-                  <option value="bog">Bog</option>
-                  <option value="countdown">Countdown</option>
-                  <option value="crash">Crash</option>
-                  <option value="crossfire">Crossfire</option>
-                  <option value="district">District</option>
-                  <option value="downpour">Downpour</option>
-                  <option value="overgrown">Overgrown</option>
-                  <option value="pipeline">Pipeline</option>
-                  <option value="shipment">Shipment</option>
-                  <option value="showdown">Showdown</option>
-                  <option value="strike">Strike</option>
-                  <option value="vacant">Vacant</option>
-                  <option value="wetwork">Wet Work</option>
-                </Input>
+                <MapSelect OnSelect={map => this.setState({ map })} map={this.state.map}/>
               </FormGroup>
             </Col>
           </Row>
