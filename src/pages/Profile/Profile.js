@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { MapSelect } from './../../components/MapSelect/MapSelect';
 import { ModeSelect } from './../../components/ModeSelect/ModeSelect'; 
-// import StatChart from './../../components/StatChart/StatChart';
+//import { PieChart } from './../../components/PieChart/PieChart';
 import PlayerTable from './../../components/PlayerTable/PlayerTable';
 import { db } from './../../config/constants';
 import './Profile.css';
@@ -62,6 +62,16 @@ export default class Profile extends Component {
           </Col>
 
         </Row>
+
+        {
+          /*
+          <Row className="section">
+            <Col md="3" xs="6">
+              <PieChart data={[]}/>
+            </Col>
+          </Row>
+          */
+        }
 
         <Row className="section">
 
