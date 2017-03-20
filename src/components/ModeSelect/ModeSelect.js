@@ -3,7 +3,7 @@ import { Input } from 'reactstrap';
 
 export const ModeSelect = props => {
   return (
-    <Input type="select" name="game-mode" onChange={ (ev) => props.OnSelect(ev.target.value) } value={props.mode}>
+    <Input disabled={props.disabled} type="select" name="game-mode" onChange={ (ev) => props.OnSelect(ev.target.value) } value={props.mode}>
       <option value="">All Modes</option>
       <option value="cm">Cage Match</option>
       <option value="dom">Domination</option>

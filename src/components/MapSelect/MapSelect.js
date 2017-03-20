@@ -3,7 +3,7 @@ import { Input } from 'reactstrap';
 
 export const MapSelect = props => {
   return (
-    <Input type="select" name="map" onChange={ (ev) => props.OnSelect(ev.target.value) } value={props.map}>
+    <Input disabled={props.disabled} type="select" name="map" onChange={ (ev) => props.OnSelect(ev.target.value) } value={props.map}>
       <option value="">All Maps</option>
       <option value="ambush">Ambush</option>
       <option value="backlot">Backlot</option>

@@ -17,6 +17,7 @@ export default class NewMatch extends Component {
     super(props);
 
     this.state = {
+      alertVisible: false,
       outcome: '',
       mode: 'snd',
       map: 'vacant',
@@ -38,6 +39,7 @@ export default class NewMatch extends Component {
 
   reset() {
     this.setState({
+      alertVisible: false,
       outcome: '',
       mode: 'snd',
       map: 'vacant',

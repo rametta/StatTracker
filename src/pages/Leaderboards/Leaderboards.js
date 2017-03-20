@@ -33,7 +33,7 @@ export default class Leaderboards extends Component {
       if (!snap.hasOwnProperty(key)) continue;
 
       const aggregates = this.getAggregates(snap[key].matches);
-      console.log(key, snap[key]);
+      //console.log(key, snap[key]);
       users.push({
         uid: key,
         photo: snap[key].user.photo,
@@ -43,7 +43,7 @@ export default class Leaderboards extends Component {
 
     }
 
-    console.log(users);
+    //console.log(users);
     this.setState({ users });
   }
 
@@ -96,10 +96,10 @@ export default class Leaderboards extends Component {
             <h2 className="blue">Leaderboards</h2>
           </Col>
           <Col sm="3" xs="6" className="section">
-            <MapSelect OnSelect={map => this.setState({ map })} map={this.state.map}/>
+            <MapSelect disabled OnSelect={map => this.setState({ map })} map={this.state.map}/>
           </Col>
           <Col sm="3" xs="6" className="section">
-            <ModeSelect OnSelect={mode => this.setState({ mode })} mode={this.state.mode}/>
+            <ModeSelect disabled OnSelect={mode => this.setState({ mode })} mode={this.state.mode}/>
           </Col>
         </Row>
 
