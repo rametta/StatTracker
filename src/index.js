@@ -28,3 +28,16 @@ ReactDOM.render(
   </Router>,
   document.getElementById('root')
 );
+
+/*
+TODO:
+-- edit match
+-- delete match
+-- unique profile URL
+-- charts
+-- leaderboards sorting, filtering
+-- view leaderboards without Auth
+-- profile page aggregates, kd, kills, deaths, wins, losses, ties ...
+-- FAB button for getting to new match page from anywhere
+-- Loading spinners everywhere
+ */

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import { LeaderTable } from './../../components/LeaderTable/LeaderTable';
+import LeaderTable from './../../components/LeaderTable/LeaderTable';
 import { MapSelect } from './../../components/MapSelect/MapSelect';
 import { ModeSelect } from './../../components/ModeSelect/ModeSelect'; 
 import { db } from './../../config/constants';
@@ -18,6 +18,7 @@ export default class Leaderboards extends Component {
   componentDidMount() {
     this.ref = db.ref(`/stats/`);
     this.ref.on('value', snap => {
+      this.snap = snap.val();
       this.processSnap(snap.val());
     })
   }
@@ -26,13 +27,13 @@ export default class Leaderboards extends Component {
     this.ref.off();
   }
 
-  processSnap(snap) {
+  processSnap(snap, map, mode) {
     const users = [];
     //console.log(snap);
     for (let key in snap) {
       if (!snap.hasOwnProperty(key)) continue;
 
-      const aggregates = this.getAggregates(snap[key].matches);
+      const aggregates = this.getAggregates(snap[key].matches, map, mode);
       //console.log(key, snap[key]);
       users.push({
         uid: key,
@@ -43,11 +44,16 @@ export default class Leaderboards extends Component {
 
     }
 
+    //return users;
     //console.log(users);
-    this.setState({ users });
+    this.setState({ 
+      users,
+      map,
+      mode
+    });
   }
 
-  getAggregates(matches) {
+  getAggregates(matches, map = this.state.map, mode = this.state.mode) {
     const aggregate = {
       kd: 0,
       kills: 0,
@@ -62,22 +68,28 @@ export default class Leaderboards extends Component {
     for (let key in matches) {
       if (!matches.hasOwnProperty(key)) continue;
       const { kills, deaths, assists, outcome } = matches[key];
-      //console.log(key, matches[key]);
 
-      aggregate.kills += kills;
-      aggregate.deaths += deaths;
-      aggregate.assists += assists;
+      if((matches[key].map === map || map === '') && (matches[key].mode === mode || mode === '')) {
 
-      if(outcome === 'W') aggregate.w++;
-      if(outcome === 'L') aggregate.l++;
-      if(outcome === 'T') aggregate.t++;
+        //console.log(matches[key]);
 
-      aggregate.kd = parseFloat((aggregate.kills / aggregate.deaths).toFixed(2));
-      if(this.isInvalid(aggregate.kd)) aggregate.kd = '-';
+        aggregate.kills += kills;
+        aggregate.deaths += deaths;
+        aggregate.assists += assists;
 
-      aggregate.wl = parseFloat((aggregate.w / aggregate.l).toFixed(2));
-      if(this.isInvalid(aggregate.wl)) aggregate.wl = '-';
+        if(outcome === 'W') aggregate.w++;
+        if(outcome === 'L') aggregate.l++;
+        if(outcome === 'T') aggregate.t++;
+
+      }
+      
     }
+
+    aggregate.kd = parseFloat((aggregate.kills / aggregate.deaths).toFixed(2));
+    if(this.isInvalid(aggregate.kd)) aggregate.kd = '-';
+
+    aggregate.wl = parseFloat((aggregate.w / aggregate.l).toFixed(2));
+    if(this.isInvalid(aggregate.wl)) aggregate.wl = '-';
 
     //console.log(aggregate);
     return aggregate;
@@ -85,6 +97,18 @@ export default class Leaderboards extends Component {
 
   isInvalid(value) {
     return (isNaN(value) || !isFinite(value));
+  }
+
+  mapSelect(map) {
+    //this.setState({ map });
+    console.log(map);
+    this.processSnap(this.snap, map);
+  }
+
+  modeSelect(mode) {
+    console.log(mode);
+    //this.setState({ mode });
+    this.processSnap(this.snap, null, mode);
   }
 
   render() {
@@ -96,16 +120,16 @@ export default class Leaderboards extends Component {
             <h2 className="blue">Leaderboards</h2>
           </Col>
           <Col sm="3" xs="6" className="section">
-            <MapSelect disabled OnSelect={map => this.setState({ map })} map={this.state.map}/>
+            <MapSelect disabled OnSelect={map => this.mapSelect(map)} map={this.state.map}/>
           </Col>
           <Col sm="3" xs="6" className="section">
-            <ModeSelect disabled OnSelect={mode => this.setState({ mode })} mode={this.state.mode}/>
+            <ModeSelect disabled OnSelect={mode => this.modeSelect(mode)} mode={this.state.mode}/>
           </Col>
         </Row>
 
         <Row className="section">
           <Col xs="12">
-            <LeaderTable id="overall" users={this.state.users}/>
+            <LeaderTable id="overall" users={this.state.users} />
           </Col>
         </Row>
 

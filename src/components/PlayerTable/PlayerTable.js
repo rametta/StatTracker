@@ -53,84 +53,83 @@ export default class PlayerTable extends Component {
     return (
       <Container fluid>
         <Row>
-            <Table responsive striped bordered className="player-table">
-              <thead>
-                <tr>
-                  <th onClick={() => this.toggleSort('date')}>
-                    Date {sortType === 'date' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th onClick={() => this.toggleSort('map')}>
-                    Map {sortType === 'map' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th onClick={() => this.toggleSort('mode')}>
-                    Mode {sortType === 'mode' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th className="text-center" onClick={() => this.toggleSort('outcome')}>
-                    <TextTooltip id={id} name="outcome" tooltip="Outcome">O</TextTooltip> {sortType === 'outcome' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th className="text-center" onClick={() => this.toggleSort('kills')}>
-                    <TextTooltip id={id} name="kills" tooltip="Kills">K</TextTooltip> {sortType === 'kills' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th className="text-center" onClick={() => this.toggleSort('deaths')}>
-                    <TextTooltip id={id} name="deaths" tooltip="Deaths">D</TextTooltip> {sortType === 'deaths' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th className="text-center" onClick={() => this.toggleSort('assists')}>
-                    <TextTooltip id={id} name="assists" tooltip="Assists">A</TextTooltip> {sortType === 'assists' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th className="text-center" onClick={() => this.toggleSort('kd')}>
-                    <TextTooltip id={id} name="kd" tooltip="Kill/Death Ratio">K/D</TextTooltip> {sortType === 'kd' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th className="text-center" onClick={() => this.toggleSort('roundWins')}>
-                    <TextTooltip id={id} name="roundWins" tooltip="Round Wins">RoW</TextTooltip> {sortType === 'roundWins' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th className="text-center" onClick={() => this.toggleSort('roundLosses')}>
-                    <TextTooltip id={id} name="roundLosses" tooltip="Round Losses">RoL</TextTooltip> {sortType === 'roundLosses' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                  <th className="text-center" onClick={() => this.toggleSort('rwl')}>
-                    <TextTooltip id={id} name="rwl" tooltip="Round Win/Loss Ratio">W/L</TextTooltip> {sortType === 'rwl' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-              {
-                matches ?
-                matches.map((m, i) => {
-                    return (
-                      <tr key={i}>
-                        <td>{FormatDate(m.date)}</td>
-                        <td className="capitalize">{m.map}</td>
-                        <td className="uppercase">{m.mode}</td>
-                        <td className={`text-center bold ${OutcomeStyle(m.outcome)}`}>{m.outcome}</td>
-                        <td className="text-center">{m.kills}</td>
-                        <td className="text-center">{m.deaths}</td>
-                        <td className="text-center">{m.assists}</td>
-                        <td className={`text-center ${RatioStyle(m.kdRatio)}`}>{m.kdRatio}</td>
-                        <td className="text-center">{m.roundWins}</td>
-                        <td className="text-center">{m.roundLosses}</td>
-                        <td className={`text-center ${RatioStyle(m.roundRatio)}`}>{m.roundRatio}</td>
-                      </tr>
-                    )
-                }
-              )
-                : null
-              }
-
-              
-              
-              </tbody>
-            </Table>
-
+        
+          <Table responsive striped bordered className="player-table">
+            <thead>
+              <tr>
+                <th onClick={() => this.toggleSort('date')}>
+                  Date {sortType === 'date' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th onClick={() => this.toggleSort('map')}>
+                  Map {sortType === 'map' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th onClick={() => this.toggleSort('mode')}>
+                  Mode {sortType === 'mode' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th className="text-center" onClick={() => this.toggleSort('outcome')}>
+                  <TextTooltip id={id} name="outcome" tooltip="Outcome">O</TextTooltip> {sortType === 'outcome' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th className="text-center" onClick={() => this.toggleSort('kills')}>
+                  <TextTooltip id={id} name="kills" tooltip="Kills">K</TextTooltip> {sortType === 'kills' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th className="text-center" onClick={() => this.toggleSort('deaths')}>
+                  <TextTooltip id={id} name="deaths" tooltip="Deaths">D</TextTooltip> {sortType === 'deaths' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th className="text-center" onClick={() => this.toggleSort('assists')}>
+                  <TextTooltip id={id} name="assists" tooltip="Assists">A</TextTooltip> {sortType === 'assists' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th className="text-center" onClick={() => this.toggleSort('kd')}>
+                  <TextTooltip id={id} name="kd" tooltip="Kill/Death Ratio">K/D</TextTooltip> {sortType === 'kd' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th className="text-center" onClick={() => this.toggleSort('roundWins')}>
+                  <TextTooltip id={id} name="roundWins" tooltip="Round Wins">RoW</TextTooltip> {sortType === 'roundWins' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th className="text-center" onClick={() => this.toggleSort('roundLosses')}>
+                  <TextTooltip id={id} name="roundLosses" tooltip="Round Losses">RoL</TextTooltip> {sortType === 'roundLosses' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+                <th className="text-center" onClick={() => this.toggleSort('rwl')}>
+                  <TextTooltip id={id} name="rwl" tooltip="Round Win/Loss Ratio">W/L</TextTooltip> {sortType === 'rwl' ? <FontAwesome name={`sort-${sortOrder}`}/> : null}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
             {
-                matches.length === 0 ?
-                  <Row className="text-muted section">
-                    <Col className="text-center">
-                      <FontAwesome name="frown-o"/> No matches to see here folks...
-                    </Col>
-                  </Row>
-                : null
+              matches ?
+              matches.map((m, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{FormatDate(m.date)}</td>
+                      <td className="capitalize">{m.map}</td>
+                      <td className="uppercase">{m.mode}</td>
+                      <td className={`text-center bold ${OutcomeStyle(m.outcome)}`}>{m.outcome}</td>
+                      <td className="text-center">{m.kills}</td>
+                      <td className="text-center">{m.deaths}</td>
+                      <td className="text-center">{m.assists}</td>
+                      <td className={`text-center ${RatioStyle(m.kdRatio)}`}>{m.kdRatio}</td>
+                      <td className="text-center">{m.roundWins}</td>
+                      <td className="text-center">{m.roundLosses}</td>
+                      <td className={`text-center ${RatioStyle(m.roundRatio)}`}>{m.roundRatio}</td>
+                    </tr>
+                  )
               }
+            )
+              : null
+            }
+            
+            </tbody>
+          </Table>
 
         </Row>
+
+        {
+          matches.length === 0 ?
+            <Row className="text-muted section">
+              <Col xs="12" className="text-center">
+                <FontAwesome name="frown-o"/> No matches to see here folks...
+              </Col>
+            </Row>
+          : null
+        }
       </Container>
     );
   }
